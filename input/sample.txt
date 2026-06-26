@@ -1,0 +1,4 @@
+Hello World!
+Welcome to my Smart File Compression Tool.
+
+This project uses Huffman Coding.
