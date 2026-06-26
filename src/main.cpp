@@ -1,7 +1,8 @@
-#include <iostream>
+ #include <iostream>
 #include <string>
 
 #include "FileManager.h"
+#include "FrequencyCounter.h"
 
 int main()
 {
@@ -11,13 +12,14 @@ int main()
     std::cout << "=====================================\n\n";
 
     FileManager fileManager;
+    FrequencyCounter frequencyCounter;
 
     std::string fileName;
 
     std::cout << "Enter file name: ";
     std::getline(std::cin, fileName);
 
-    if(fileManager.readFile("input/" + fileName))
+    if (fileManager.readFile("input/" + fileName))
     {
         std::cout << "\nFile loaded successfully!\n\n";
 
@@ -25,6 +27,13 @@ int main()
         std::cout << "-----------------------------\n";
 
         std::cout << fileManager.getFileData();
+
+        frequencyCounter.countFrequency(fileManager.getFileData());
+
+        std::cout << "\n\nFrequency Table\n";
+        std::cout << "=========================\n";
+
+        frequencyCounter.displayFrequency();
 
         std::cout << "\n";
     }
