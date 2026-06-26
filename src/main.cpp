@@ -4,6 +4,7 @@
 #include "FileManager.h"
 #include "FrequencyCounter.h"
 #include "HuffmanTree.h"
+#include "Compressor.h"
 
 int main()
 {
@@ -15,6 +16,7 @@ int main()
     FileManager fileManager;
     FrequencyCounter frequencyCounter;
     HuffmanTree huffmanTree;
+    Compressor compressor;
 
     std::string fileName;
 
@@ -25,6 +27,7 @@ int main()
     {
         std::cout << "\nFile loaded successfully!\n\n";
 
+        // Display file contents
         std::cout << "File Contents\n";
         std::cout << "-----------------------------\n";
         std::cout << fileManager.getFileData();
@@ -38,10 +41,9 @@ int main()
 
         // Build Huffman Tree
         huffmanTree.buildTree(
-            frequencyCounter.getFrequencyMap()
-        );
+            frequencyCounter.getFrequencyMap());
 
-        std::cout << "\n\nHuffman Tree created successfully!\n";
+        std::cout << "\nHuffman Tree created successfully!\n";
 
         // Generate Huffman Codes
         huffmanTree.generateCodes();
@@ -50,7 +52,12 @@ int main()
         std::cout << "=========================\n";
         huffmanTree.displayCodes();
 
-        std::cout << "\n";
+        // Compress the file
+        compressor.compress(
+            fileManager.getFileData(),
+            huffmanTree.getCodes());
+
+        compressor.displayCompressedData();
     }
     else
     {
