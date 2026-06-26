@@ -3,6 +3,7 @@
 
 #include "FileManager.h"
 #include "FrequencyCounter.h"
+#include "HuffmanTree.h"
 
 int main()
 {
@@ -13,6 +14,7 @@ int main()
 
     FileManager fileManager;
     FrequencyCounter frequencyCounter;
+    HuffmanTree huffmanTree;
 
     std::string fileName;
 
@@ -25,15 +27,28 @@ int main()
 
         std::cout << "File Contents\n";
         std::cout << "-----------------------------\n";
-
         std::cout << fileManager.getFileData();
 
+        // Count character frequencies
         frequencyCounter.countFrequency(fileManager.getFileData());
 
         std::cout << "\n\nFrequency Table\n";
         std::cout << "=========================\n";
-
         frequencyCounter.displayFrequency();
+
+        // Build Huffman Tree
+        huffmanTree.buildTree(
+            frequencyCounter.getFrequencyMap()
+        );
+
+        std::cout << "\n\nHuffman Tree created successfully!\n";
+
+        // Generate Huffman Codes
+        huffmanTree.generateCodes();
+
+        std::cout << "\nHuffman Codes\n";
+        std::cout << "=========================\n";
+        huffmanTree.displayCodes();
 
         std::cout << "\n";
     }
