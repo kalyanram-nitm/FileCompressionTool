@@ -5,6 +5,7 @@
 #include "FrequencyCounter.h"
 #include "HuffmanTree.h"
 #include "Compressor.h"
+#include "Statistics.h"
 
 int main()
 {
@@ -17,6 +18,7 @@ int main()
     FrequencyCounter frequencyCounter;
     HuffmanTree huffmanTree;
     Compressor compressor;
+    Statistics statistics;
 
     std::string fileName;
 
@@ -58,6 +60,13 @@ int main()
             huffmanTree.getCodes());
 
         compressor.displayCompressedData();
+
+        // Calculate and display statistics
+        statistics.calculate(
+            static_cast<int>(fileManager.getFileData().size()),
+            static_cast<int>(compressor.getCompressedData().size()));
+
+        statistics.displayStatistics();
     }
     else
     {
