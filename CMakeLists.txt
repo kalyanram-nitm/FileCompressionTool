@@ -10,11 +10,16 @@ include_directories(include)
 add_executable(
     FileCompressionTool
 
+     add_executable(
+    FileCompressionTool
+
     src/main.cpp
     src/FileManager.cpp
     src/FrequencyCounter.cpp
     src/HuffmanTree.cpp
     src/Compressor.cpp
-    src/Decompressor.cpp
     src/Statistics.cpp
+    src/BinaryWriter.cpp
+    src/Decompressor.cpp
+)
 )
