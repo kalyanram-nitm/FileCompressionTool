@@ -6,7 +6,6 @@
 #include "HuffmanTree.h"
 #include "Compressor.h"
 #include "Statistics.h"
-#include "BinaryWriter.h"
 #include "Decompressor.h"
 
 int main()
@@ -21,7 +20,6 @@ int main()
     HuffmanTree huffmanTree;
     Compressor compressor;
     Statistics statistics;
-    BinaryWriter binaryWriter;
     Decompressor decompressor;
 
     std::string inputFileName;
@@ -29,74 +27,65 @@ int main()
     std::cout << "Enter input file name: ";
     std::getline(std::cin, inputFileName);
 
-    if (fileManager.readFile("input/" + inputFileName))
+    if (!fileManager.readFile("input/" + inputFileName))
     {
-        std::cout << "\nFile loaded successfully!\n\n";
-
-        std::cout << "File Contents\n";
-        std::cout << "-----------------------------\n";
-        std::cout << fileManager.getFileData();
-
-        // Count frequencies
-        frequencyCounter.countFrequency(fileManager.getFileData());
-
-        std::cout << "\n\nFrequency Table\n";
-        std::cout << "=========================\n";
-        frequencyCounter.displayFrequency();
-
-        // Build Huffman Tree
-        huffmanTree.buildTree(
-            frequencyCounter.getFrequencyMap());
-
-        std::cout << "\nHuffman Tree created successfully!\n";
-
-        // Generate Huffman Codes
-        huffmanTree.generateCodes();
-
-        std::cout << "\nHuffman Codes\n";
-        std::cout << "=========================\n";
-        huffmanTree.displayCodes();
-
-        // Compress
-        compressor.compress(
-            fileManager.getFileData(),
-            huffmanTree.getCodes());
-
-        compressor.displayCompressedData();
-
-        // Statistics
-        statistics.calculate(
-            static_cast<int>(fileManager.getFileData().size()),
-            static_cast<int>(compressor.getCompressedData().size()));
-
-        statistics.displayStatistics();
-
-        // Save compressed file
-        if (binaryWriter.writeToFile(
-                "output/compressed.huff",
-                compressor.getCompressedData()))
-        {
-            std::cout << "\nCompressed file saved successfully.\n";
-        }
-        else
-        {
-            std::cout << "\nFailed to save compressed file.\n";
-        }
-
-        // Decompress
-        std::string decompressedText =
-            decompressor.decompress(
-                compressor.getCompressedData(),
-                huffmanTree.getRoot());
-
-        std::cout << "\nDecompressed Text\n";
-        std::cout << "=========================\n";
-        std::cout << decompressedText << "\n";
+        std::cout << "\nError: Unable to open file.\n";
+        return 1;
     }
-    else
-    {
-        std::cout << "\nFailed to load file.\n";
-    }
+
+    std::cout << "\nFile loaded successfully!\n";
+
+    // Display original text
+    std::cout << "\nOriginal Text\n";
+    std::cout << "=============================\n";
+    std::cout << fileManager.getFileData() << "\n";
+
+    // Count frequencies
+    frequencyCounter.countFrequency(fileManager.getFileData());
+
+    std::cout << "\nFrequency Table\n";
+    std::cout << "=============================\n";
+    frequencyCounter.displayFrequency();
+
+    // Build Huffman Tree
+    huffmanTree.buildTree(frequencyCounter.getFrequencyMap());
+
+    std::cout << "\nHuffman Tree created successfully!\n";
+
+    // Generate Huffman Codes
+    huffmanTree.generateCodes();
+
+    std::cout << "\nHuffman Codes\n";
+    std::cout << "=============================\n";
+    huffmanTree.displayCodes();
+
+    // Compress
+    compressor.compress(
+        fileManager.getFileData(),
+        huffmanTree.getCodes());
+
+    std::cout << "\nCompressed Data\n";
+    std::cout << "=============================\n";
+    compressor.displayCompressedData();
+
+    // Statistics
+    statistics.calculate(
+        static_cast<int>(fileManager.getFileData().size()),
+        static_cast<int>(compressor.getCompressedData().size()));
+
+    std::cout << "\nCompression Statistics\n";
+    std::cout << "=============================\n";
+    statistics.displayStatistics();
+
+    // Decompress
+    std::string decompressedText =
+        decompressor.decompress(
+            compressor.getCompressedData(),
+            huffmanTree.getRoot());
+
+    std::cout << "\nDecompressed Text\n";
+    std::cout << "=============================\n";
+    std::cout << decompressedText << "\n";
 
     return 0;
 }
