@@ -25,6 +25,35 @@ output/
 tests/
 build/
 ```
+## 📸 Screenshots
+
+### Program Start
+
+![Program Start](docs/images/menu.png)
+
+---
+
+### Frequency Table
+
+![Frequency Table](docs/images/frequency.png)
+
+---
+
+### Huffman Codes
+
+![Huffman Codes](docs/images/codes.png)
+
+---
+
+### Compression Statistics
+
+![Compression Statistics](docs/images/statistics.png)
+
+---
+
+### Decompressed Output
+
+![Decompressed Output](docs/images/decompression.png)
 
 ## Authors
 - Avireddy Naga Venkata Kalyan Ram
