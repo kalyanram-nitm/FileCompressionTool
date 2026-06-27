@@ -1,6 +1,26 @@
+# Build folder
 build/
-.vscode/
+
+# Output files
+output/*.huff
+
+# Executables
 *.exe
+*.out
+
+# Object files
 *.o
 *.obj
-*.log
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Visual Studio Code settings
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
